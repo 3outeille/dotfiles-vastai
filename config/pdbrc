@@ -1,0 +1,9 @@
+alias n from os import system ;; _ = system('clear') ;; print("[STDOUT]:") ;; next ;; print("~"*42) ;; list .
+alias nn from os import system ;; _ = system('clear') ;; print("[STDOUT]:") ;; next ;; print("~"*42) ;; longlist .
+alias c from os import system ;; _ = system('clear') ;; print("[STDOUT]:") ;; continue ;; print("~"*42) ;; longlist .
+alias s from os import system ;; _ = system('clear') ;; print("[STDOUT]:") ;; step ;; print("~"*42) ;; list . 
+alias ss from os import system ;; _ = system('clear') ;; print("[STDOUT]:") ;; step ;; print("~"*42) ;; longlist . 
+alias r from os import system ;; _ = system('clear') ;; print("[STDOUT]:") ;; return ;; print("~"*42) ;; longlist . 
+alias ll from os import system ;; _ = system('clear') ;; longlist .
+alias cmd commands
+alias ret return
