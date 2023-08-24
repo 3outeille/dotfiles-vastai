@@ -12,6 +12,9 @@ ln -s $HOME/dotfiles-vastai/config/aliases.zsh $HOME/.zsh/aliases.zsh
 # Change shell to zsh
 chsh -s $(which zsh)
 
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+mv zsh-syntax-highlighting ${HOME}/.oh-my-zsh/plugins
+
 # ====== Fuzzer Finder =====
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
