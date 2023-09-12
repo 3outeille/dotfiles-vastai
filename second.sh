@@ -28,3 +28,6 @@ ln -s $HOME/dotfiles/config/pdbrc $HOME/.pdbrc
 
 # ======= Pyenv =======
 curl https://pyenv.run | bash
+
+# ======== Nvtop ======
+sudo apt install nvtop
