@@ -28,10 +28,8 @@ ln -s $HOME/dotfiles/config/pdbrc $HOME/.pdbrc
 
 # ======= Pyenv =======
 curl https://pyenv.run | bash
+sudo apt-get install build-essential zlib1g-dev libffi-dev libssl-dev libbz2-dev libreadline-dev libsqlite3-dev liblzma-dev
 
 # ======== Nvtop ======
 sudo apt install nvtop
-
-# ========== GCC=======
-sudo apt-get install build-essential
 
