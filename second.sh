@@ -31,3 +31,7 @@ curl https://pyenv.run | bash
 
 # ======== Nvtop ======
 sudo apt install nvtop
+
+# ========== GCC=======
+sudo apt-get install build-essential
+
