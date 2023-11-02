@@ -23,8 +23,8 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 rm $HOME/.pdbrc.py
 rm $HOME/.pdbrc
 
-ln -s $HOME/dotfiles/config/pdbrc.py $HOME/.pdbrc.py
-ln -s $HOME/dotfiles/config/pdbrc $HOME/.pdbrc
+ln -s $HOME/dotfiles-vastai/config/pdbrc.py $HOME/.pdbrc.py
+ln -s $HOME/dotfiles-vastai/config/pdbrc $HOME/.pdbrc
 
 # ======= Pyenv =======
 curl https://pyenv.run | bash
