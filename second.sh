@@ -40,4 +40,5 @@ git clone https://github.com/megvii-research/expman $HOME/.expman
 echo '[[ -o interactive ]] && source $HOME/.expman/expman.zsh' >> ~/.zshrc
 
 # ======= vscode extension ==========
+rm -rf $HOME/.vscode-server/extensions/
 ln -s $HOME/dotfiles-vastai/config/vscode-server/extensions $HOME/.vscode-server
