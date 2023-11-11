@@ -1,0 +1,346 @@
+{
+	"name": "ruff",
+	"displayName": "Ruff",
+	"description": "A Visual Studio Code extension with support for the Ruff linter.",
+	"version": "2023.50.0",
+	"serverInfo": {
+		"name": "Ruff",
+		"module": "ruff"
+	},
+	"publisher": "charliermarsh",
+	"license": "MIT",
+	"homepage": "https://github.com/astral-sh/ruff-vscode",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/astral-sh/ruff-vscode.git"
+	},
+	"bugs": {
+		"url": "https://github.com/astral-sh/ruff-vscode/issues"
+	},
+	"icon": "icon.png",
+	"galleryBanner": {
+		"color": "#1e415e",
+		"theme": "dark"
+	},
+	"keywords": [
+		"python",
+		"linting",
+		"ruff"
+	],
+	"engines": {
+		"vscode": "^1.75.0"
+	},
+	"categories": [
+		"Programming Languages",
+		"Linters"
+	],
+	"extensionDependencies": [
+		"ms-python.python"
+	],
+	"capabilities": {
+		"virtualWorkspaces": {
+			"supported": false,
+			"description": "Virtual Workspaces are not supported by the Ruff extension."
+		}
+	},
+	"activationEvents": [
+		"onLanguage:python",
+		"workspaceContains:*.py",
+		"workspaceContains:*.ipynb",
+		"onCommand:ruff.restart"
+	],
+	"main": "./dist/extension.js",
+	"scripts": {
+		"fmt": "prettier -w .",
+		"lint": "eslint src --ext ts",
+		"tsc": "tsc --noEmit",
+		"package": "webpack --mode production --devtool source-map --config ./webpack.config.js",
+		"watch": "webpack --watch",
+		"vsce-package": "vsce package -o ruff.vsix",
+		"vscode:prepublish": "npm run package"
+	},
+	"contributes": {
+		"configuration": {
+			"properties": {
+				"ruff.args": {
+					"default": [],
+					"markdownDescription": "Additional command-line arguments to pass to `ruff check`, e.g., `\"args\": [\"--config=/path/to/pyproject.toml\"]`. Supports a subset of Ruff's command-line arguments, ignoring those that are required to operate the LSP, like `--force-exclude` and `--verbose`.",
+					"markdownDeprecationMessage": "**Deprecated**: Please use `#ruff.lint.args` instead.",
+					"deprecationMessage": "Deprecated: Please use ruff.lint.args instead.",
+					"items": {
+						"type": "string"
+					},
+					"scope": "resource",
+					"type": "array"
+				},
+				"ruff.lint.args": {
+					"default": [],
+					"markdownDescription": "Additional command-line arguments to pass to `ruff check`, e.g., `\"args\": [\"--config=/path/to/pyproject.toml\"]`. Supports a subset of Ruff's command-line arguments, ignoring those that are required to operate the LSP, like `--force-exclude` and `--verbose`.",
+					"items": {
+						"type": "string"
+					},
+					"scope": "resource",
+					"type": "array"
+				},
+				"ruff.run": {
+					"default": "onType",
+					"markdownDescription": "Run Ruff on every keystroke (`onType`) or on save (`onSave`).",
+					"markdownDeprecationMessage": "**Deprecated**: Please use `#ruff.lint.run` instead.",
+					"deprecationMessage": "Deprecated: Please use ruff.lint.run instead.",
+					"enum": [
+						"onType",
+						"onSave"
+					],
+					"enumDescriptions": [
+						"Run Ruff on every keystroke.",
+						"Run Ruff on save."
+					],
+					"scope": "window",
+					"type": "string"
+				},
+				"ruff.lint.run": {
+					"default": "onType",
+					"markdownDescription": "Run Ruff on every keystroke (`onType`) or on save (`onSave`).",
+					"enum": [
+						"onType",
+						"onSave"
+					],
+					"enumDescriptions": [
+						"Run Ruff on every keystroke.",
+						"Run Ruff on save."
+					],
+					"scope": "window",
+					"type": "string"
+				},
+				"ruff.format.args": {
+					"default": [],
+					"markdownDescription": "Additional command-line arguments to pass to `ruff format`, e.g., `\"args\": [\"--config=/path/to/pyproject.toml\"]`. Supports a subset of Ruff's command-line arguments, ignoring those that are required to operate the LSP, like `--force-exclude` and `--verbose`.",
+					"items": {
+						"type": "string"
+					},
+					"scope": "resource",
+					"type": "array"
+				},
+				"ruff.path": {
+					"default": [],
+					"markdownDescription": "Path to a custom `ruff` executable, e.g., `[\"/path/to/ruff\"]`.",
+					"scope": "resource",
+					"items": {
+						"type": "string"
+					},
+					"type": "array"
+				},
+				"ruff.importStrategy": {
+					"default": "fromEnvironment",
+					"markdownDescription": "Strategy for loading the `ruff` executable. `fromEnvironment` picks up Ruff from the environment, falling back to the bundled version if needed. `useBundled` uses the version bundled with the extension.",
+					"enum": [
+						"fromEnvironment",
+						"useBundled"
+					],
+					"enumDescriptions": [
+						"Use `ruff` from environment, falling back to the bundled version if `ruff` is not found.",
+						"Always use the bundled version of `ruff`."
+					],
+					"scope": "window",
+					"type": "string"
+				},
+				"ruff.interpreter": {
+					"default": [],
+					"markdownDescription": "Path to a Python interpreter to use to run the LSP server.",
+					"scope": "window",
+					"items": {
+						"type": "string"
+					},
+					"type": "array"
+				},
+				"ruff.enable": {
+					"default": true,
+					"markdownDescription": "Whether to enable the Ruff extension.",
+					"scope": "window",
+					"type": "boolean"
+				},
+				"ruff.organizeImports": {
+					"default": true,
+					"markdownDescription": "Whether to register Ruff as capable of handling `source.organizeImports` actions.",
+					"scope": "window",
+					"type": "boolean"
+				},
+				"ruff.fixAll": {
+					"default": true,
+					"markdownDescription": "Whether to register Ruff as capable of handling `source.fixAll` actions.",
+					"scope": "window",
+					"type": "boolean"
+				},
+				"ruff.codeAction.fixViolation": {
+					"scope": "resource",
+					"type": "object",
+					"default": {
+						"enable": true
+					},
+					"properties": {
+						"enable": {
+							"type": "boolean",
+							"default": true,
+							"markdownDescription": "Enable the Quick Fix."
+						}
+					},
+					"additionalProperties": false,
+					"markdownDescription": "Whether to display Quick Fix actions to autofix violations."
+				},
+				"ruff.codeAction.disableRuleComment": {
+					"scope": "resource",
+					"type": "object",
+					"default": {
+						"enable": true
+					},
+					"properties": {
+						"enable": {
+							"type": "boolean",
+							"default": true,
+							"markdownDescription": "Enable the Quick Fix."
+						}
+					},
+					"additionalProperties": false,
+					"markdownDescription": "Whether to display Quick Fix actions to disable rules via `noqa` suppression comments."
+				},
+				"ruff.trace.server": {
+					"type": "string",
+					"enum": [
+						"off",
+						"messages",
+						"verbose"
+					],
+					"default": "off",
+					"markdownDescription": "Traces the communication between VSCode and the ruff-lsp."
+				},
+				"ruff.showNotifications": {
+					"default": "off",
+					"markdownDescription": "Controls when notifications are shown by this extension.",
+					"enum": [
+						"off",
+						"onError",
+						"onWarning",
+						"always"
+					],
+					"enumDescriptions": [
+						"All notifications are turned off, any errors or warning are still available in the logs.",
+						"Notifications are shown only in the case of an error.",
+						"Notifications are shown for errors and warnings.",
+						"Notifications are show for anything that the server chooses to show."
+					],
+					"scope": "window",
+					"type": "string"
+				},
+				"ruff.enableExperimentalFormatter": {
+					"default": false,
+					"markdownDescription": "Controls whether Ruff registers as capable of code formatting.",
+					"markdownDeprecationMessage": "**Deprecated**: Formatter capabilities are now always enabled.",
+					"deprecationMessage": "Deprecated: Formatter capabilities are now always enabled.",
+					"scope": "window",
+					"type": "boolean"
+				}
+			}
+		},
+		"commands": [
+			{
+				"title": "Fix all auto-fixable problems",
+				"category": "Ruff",
+				"command": "ruff.executeAutofix"
+			},
+			{
+				"title": "Format document",
+				"category": "Ruff",
+				"command": "ruff.executeFormat"
+			},
+			{
+				"title": "Format imports",
+				"category": "Ruff",
+				"command": "ruff.executeOrganizeImports"
+			},
+			{
+				"title": "Restart Server",
+				"category": "Ruff",
+				"command": "ruff.restart"
+			}
+		]
+	},
+	"dependencies": {
+		"fs-extra": "^11.1.1",
+		"ovsx": "^0.7.1",
+		"vscode-languageclient": "^8.1.0"
+	},
+	"devDependencies": {
+		"@types/fs-extra": "^11.0.1",
+		"@types/glob": "^8.1.0",
+		"@types/node": "^20.3.1",
+		"@types/vscode": "1.75.0",
+		"@typescript-eslint/eslint-plugin": "^5.59.2",
+		"@typescript-eslint/parser": "^5.59.2",
+		"@vscode/vsce": "^2.19.0",
+		"eslint": "^8.30.0",
+		"eslint-plugin-prettier": "^4.2.1",
+		"glob": "^10.2.2",
+		"prettier": "^2.8.8",
+		"ts-loader": "^9.4.2",
+		"typescript": "^5.1.3",
+		"vsce": "^2.15.0",
+		"webpack": "^5.82.0",
+		"webpack-cli": "^5.0.2"
+	},
+	"prettier": {
+		"printWidth": 100,
+		"tabWidth": 2,
+		"trailingComma": "all"
+	},
+	"eslintConfig": {
+		"root": true,
+		"parser": "@typescript-eslint/parser",
+		"parserOptions": {
+			"ecmaVersion": 6,
+			"sourceType": "module"
+		},
+		"plugins": [
+			"@typescript-eslint",
+			"prettier"
+		],
+		"rules": {
+			"prettier/prettier": "error",
+			"@typescript-eslint/naming-convention": "warn",
+			"@typescript-eslint/semi": "warn",
+			"curly": "warn",
+			"eqeqeq": [
+				"warn",
+				"smart"
+			],
+			"no-throw-literal": "warn",
+			"semi": "off"
+		},
+		"ignorePatterns": [
+			"out",
+			"dist",
+			"**/*.d.ts"
+		]
+	},
+	"eslintIgnore": [
+		"**/.nox/",
+		"**/.pytest_cache/",
+		"**/.ruff_cache/",
+		"**/.venv/",
+		"**/__pycache__/",
+		"**/dist/",
+		"**/node_modules/",
+		"*.vsix",
+		"*.pyc",
+		"/bundled/libs/"
+	],
+	"__metadata": {
+		"id": "c2ca9b43-fa38-44fc-928e-5125970b9c00",
+		"publisherId": "ae7578b3-bd2b-455d-bbd6-cd231eee3c09",
+		"publisherDisplayName": "Astral Software",
+		"targetPlatform": "linux-x64",
+		"updated": false,
+		"isPreReleaseVersion": false,
+		"installedTimestamp": 1699712976471,
+		"preRelease": false
+	}
+}
