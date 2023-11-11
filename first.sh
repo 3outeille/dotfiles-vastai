@@ -10,4 +10,4 @@ git config --global user.name "Ferdinand Mom"
 # ========== ZSH ==========
 yes | sudo apt install zsh
 # install oh-my-zsh
-sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+yes | sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
