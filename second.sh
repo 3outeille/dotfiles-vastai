@@ -1,4 +1,4 @@
-sudo apt install vim
+yes | sudo apt install vim
 
 # ======= ZSH =========
 # Link zsh
@@ -12,7 +12,7 @@ ln -s $HOME/dotfiles-vastai/config/aliases.zsh $HOME/.zsh/aliases.zsh
 # Change shell to zsh
 yes | chsh -s $(which zsh)
 
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+yes | git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
 mv zsh-syntax-highlighting ${HOME}/.oh-my-zsh/plugins
 
 # ====== Fuzzer Finder =====
